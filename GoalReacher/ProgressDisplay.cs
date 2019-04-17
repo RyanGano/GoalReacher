@@ -16,10 +16,10 @@ namespace GoalReacher
 			ActualAmount = actualAmount;
 			Canvas = new Canvas();
 
-			UpdateSize(width, height);
+			UpdateDisplay(width, height);
 		}
 
-		internal void UpdateSize(double width, double height)
+		internal void UpdateDisplay(double width, double height)
 		{
 			Canvas.Children.Clear();
 

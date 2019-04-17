@@ -17,14 +17,14 @@ namespace GoalReacher
 
 		private void OnSizeChanged(object sender, SizeChangedEventArgs e)
 		{
-			m_progressDisplay.UpdateSize(e.NewSize.Width - c_widthOffset, e.NewSize.Height - c_heightOffset);
+			m_progressDisplay.UpdateDisplay(ProgressDisplay.ActualWidth, ProgressDisplay.ActualHeight);
 		}
 
 		ProgressDisplay m_progressDisplay;
 
 		private void UpdateProgress_Click(object sender, RoutedEventArgs e)
 		{
-			m_progressDisplay.UpdateSize((int)Width - c_widthOffset, (int)Height - c_heightOffset);
+			m_progressDisplay.UpdateDisplay(ProgressDisplay.ActualWidth, ProgressDisplay.ActualHeight);
 		}
 
 		const int c_widthOffset = 14;
