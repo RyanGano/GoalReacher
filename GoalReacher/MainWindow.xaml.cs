@@ -29,5 +29,14 @@ namespace GoalReacher
 
 		const int c_widthOffset = 14;
 		const int c_heightOffset = 38;
+
+		private void TextBox_KeyDown(object sender, System.Windows.Input.KeyEventArgs e)
+		{
+			if (e.Key == System.Windows.Input.Key.Enter)
+			{
+				m_progressDisplay.UpdateDisplay(ProgressDisplay.ActualWidth, ProgressDisplay.ActualHeight);
+				e.Handled = true;
+			}
+		}
 	}
 }
