@@ -24,12 +24,12 @@
 					</Grid.ColumnDefinitions>
 					<DockPanel Margin="4" Grid.Column="0">
 						<Label Content="Goal:" VerticalAlignment="Center"/>
-						<TextBox Background="LightGray" VerticalContentAlignment="Center" Text="{Binding GoalAmount, UpdateSourceTrigger=PropertyChanged}" KeyDown="TextBox_KeyDown" />
+						<TextBox Background="LightGray" VerticalContentAlignment="Center" Text="{Binding GoalAmount, StringFormat=C, UpdateSourceTrigger=PropertyChanged}" KeyDown="TextBox_KeyDown" />
 					</DockPanel>
 
 					<DockPanel Margin="4" Grid.Column="1">
 						<Label Content="Current:" VerticalAlignment="Center" />
-						<TextBox Background="LightGray" VerticalContentAlignment="Center" Text="{Binding ActualAmount, UpdateSourceTrigger=PropertyChanged}" KeyDown="TextBox_KeyDown" />
+						<TextBox Background="LightGray" VerticalContentAlignment="Center" Text="{Binding ActualAmount, StringFormat=C, UpdateSourceTrigger=PropertyChanged}" KeyDown="TextBox_KeyDown" />
 					</DockPanel>
 
 					<Button Margin="4" Grid.Column="2" Content="Update" Click="UpdateProgress_Click" IsDefault="True"/>
