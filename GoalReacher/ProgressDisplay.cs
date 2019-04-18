@@ -7,8 +7,9 @@ namespace GoalReacher
 {
 	class ProgressDisplay
 	{
-		public ProgressDisplay(string background, double width, double height, int numberOfItems, decimal goalAmount, decimal actualAmount)
+		public ProgressDisplay(string title, string background, double width, double height, int numberOfItems, decimal goalAmount, decimal actualAmount)
 		{
+			Title = title;
 			Background = background;
 			NumberOfItems = numberOfItems;
 			GoalAmount = goalAmount;
@@ -69,6 +70,7 @@ namespace GoalReacher
 		}
 
 		public Canvas Canvas { get; private set; }
+		public string Title { get; }
 		public string Background { get; }
 		public int NumberOfItems { get; }
 		public decimal GoalAmount { get; set; }

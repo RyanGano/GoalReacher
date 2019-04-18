@@ -1,0 +1,5 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<goals>
+	<goal title="House" photo="House.jpg" goalAmount="460000.00" currentAmount="0.00" steps="460" />
+	<goal title="Millionaire" photo="bags-of-money.jpg" goalAmount="1000000.00" currentAmount="12500.00" steps="1000" />
+</goals>
