@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
@@ -26,11 +25,8 @@ namespace GoalReacher
 		private void UpdateUIWithProgressData()
 		{
 			ProgressDisplays = LoadXmlData(@"Resources\Data.xml").ToList();
-			CurrentDisplay = ProgressDisplays.First();
-			ProgressDisplay.Content = CurrentDisplay;
-			Title = string.Format(c_windowTitle, CurrentDisplay.Title);
 			ProgressSelector.ItemsSource = ProgressDisplays;
-			ProgressSelector.SelectedItem = CurrentDisplay;
+			ProgressSelector.SelectedItem = ProgressDisplays.First();
 		}
 
 		private IEnumerable<ProgressDisplay> LoadXmlData(string dataPath)
@@ -82,8 +78,11 @@ namespace GoalReacher
 		private void ProgressSelector_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
 		{
 			CurrentDisplay = ((ComboBox)sender).SelectedItem as ProgressDisplay;
-			ProgressDisplay.Content = CurrentDisplay;
-			Title = string.Format(c_windowTitle, CurrentDisplay.Title);
+			if (CurrentDisplay != null)
+			{
+				ProgressDisplay.Content = CurrentDisplay;
+				Title = string.Format(c_windowTitle, CurrentDisplay.Title);
+			}
 		}
 	}
 }
