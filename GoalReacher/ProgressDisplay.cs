@@ -1,16 +1,20 @@
 ﻿using System;
+using io = System.IO;
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Shapes;
+using System.Net;
+using System.ComponentModel;
+using System.Windows;
 
 namespace GoalReacher
 {
-	class ProgressDisplay
+	class ProgressDisplay : DependencyObject
 	{
 		public ProgressDisplay(string title, string background, double width, double height, int numberOfItems, decimal goalAmount, decimal actualAmount)
 		{
 			Title = title;
-			Background = background;
+			LoadBackground(background);
 			NumberOfItems = numberOfItems;
 			GoalAmount = goalAmount;
 			ActualAmount = actualAmount;
@@ -18,6 +22,16 @@ namespace GoalReacher
 
 			UpdateDisplay(width, height);
 		}
+
+		public string Background
+		{
+			get { return (string)GetValue(BackgroundProperty); }
+			set { SetValue(BackgroundProperty, value); }
+		}
+
+		// Using a DependencyProperty as the backing store for Background.  This enables animation, styling, binding, etc...
+		public static readonly DependencyProperty BackgroundProperty =
+			 DependencyProperty.Register("Background", typeof(string), typeof(ProgressDisplay), new PropertyMetadata(""));
 
 		internal void UpdateDisplay(double width, double height)
 		{
@@ -69,12 +83,59 @@ namespace GoalReacher
 			}
 		}
 
+		private void LoadBackground(string background)
+		{
+			if (background.ToLower().StartsWith("http"))
+			{
+				Background = $@"Resources\Loading.jpg";
+				UpdateBackgroundImage(background);
+			}
+			else
+			{
+				Background = $@"Resources\{background}";
+			}
+		}
+
+		private void UpdateBackgroundImage(string background)
+		{
+			// Check for cached image
+			m_sourceBackground = background;
+			string cachedFileName = background.GetHashCode() + (!string.IsNullOrEmpty(io.Path.GetExtension(background)) ? io.Path.GetExtension(background) : ".jpg"); // assume jpeg if no extension
+			string cacheLocation = io.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), c_developerFolder, c_appFolder, "images");
+			m_cachedFileLocation = io.Path.Combine(cacheLocation, cachedFileName);
+
+			if (io.File.Exists(m_cachedFileLocation))
+			{
+				Background = m_cachedFileLocation;
+				return;
+			}
+
+			// Download image if needed
+			io.Directory.CreateDirectory(cacheLocation);
+			m_client = new WebClient();
+			m_client.DownloadFileCompleted += OnDownloadComplete;
+			m_client.DownloadFileAsync(new Uri(background), m_cachedFileLocation);
+		}
+
+		private void OnDownloadComplete(object sender, AsyncCompletedEventArgs e)
+		{
+			if (io.File.Exists(m_cachedFileLocation))
+				Background = m_cachedFileLocation;
+			else
+				throw new WebException($"File wasn't downloaded: {m_sourceBackground}");
+
+			m_client.DownloadFileCompleted -= OnDownloadComplete;
+		}
+
 		public Canvas Canvas { get; private set; }
 		public string Title { get; }
-		public string Background { get; }
 		public int NumberOfItems { get; }
 		public decimal GoalAmount { get; set; }
 		public decimal ActualAmount { get; set; }
+
+		WebClient m_client;
+		string m_cachedFileLocation;
+		string m_sourceBackground;
 
 		const double c_defaultOpacity = .85;
 		const double c_completedItemOpacity = 0.0;
@@ -82,5 +143,7 @@ namespace GoalReacher
 		const double c_horizontalOffset = 8;
 		const double c_topOffset = 8;
 		const double c_bottomOffset = 40;
+		const string c_developerFolder = "Ryan.Gano";
+		const string c_appFolder = "GoalReacher";
 	}
 }

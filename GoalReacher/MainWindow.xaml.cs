@@ -37,7 +37,7 @@ namespace GoalReacher
 			{
 				yield return new ProgressDisplay(
 					goal.Attribute("title").Value,
-					$@"Resources\{goal.Attribute("photo").Value}",
+					goal.Attribute("photo").Value,
 					(int)Width - c_widthOffset,
 					(int)Height - c_heightOffset,
 					int.Parse(goal.Attribute("steps").Value),

@@ -14,7 +14,7 @@
 					<RowDefinition Height="*" />
 					<RowDefinition Height="Auto" />
 				</Grid.RowDefinitions>
-				<Image Name="BackgroundImage" Source="{Binding Background}" Stretch="UniformToFill" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+				<Image Name="BackgroundImage" Source="{Binding Background}" Stretch="UniformToFill" HorizontalAlignment="Center" VerticalAlignment="Center" />
 				<ContentPresenter Content="{Binding Canvas}" />
 				<Grid Margin="0" Background="LightGray" Grid.Row="1">
 					<Grid.ColumnDefinitions>

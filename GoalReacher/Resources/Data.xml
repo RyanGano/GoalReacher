@@ -1,5 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <goals>
-	<goal title="House" photo="House.jpg" goalAmount="460000.00" currentAmount="0.00" steps="460" />
-	<goal title="Millionaire" photo="bags-of-money.jpg" goalAmount="1000000.00" currentAmount="12500.00" steps="1000" />
+	<goal title="House" photo="https://fromthebedside.files.wordpress.com/2008/06/img_15381.jpg" goalAmount="460000.00" currentAmount="125000.00" steps="460" />
+	<goal title="New Car" photo="http://3.bp.blogspot.com/-PjoEz7zM8ps/UCSt6h5Nm2I/AAAAAAAABeU/xInQUn-aTpQ/s1600/Red-Ferrari-California-Picture-Wallpaper.jpg" goalAmount="300000.00" currentAmount="0.00" steps="300" />
+	<goal title="Millionaire" photo="http://innovation-village.com/wp-content/uploads/2016/01/bags-of-money.jpg" goalAmount="1000000.00" currentAmount="12500.00" steps="1000" />
 </goals>
