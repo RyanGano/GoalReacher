@@ -35,7 +35,6 @@ namespace GoalReacher
 
 			foreach (var goal in data.Root.Elements("goal"))
 			{
-				//	< goal title = "2nd Mortgage" photo = "House.jpg" goalAmount = "48502.99" currentAmount = "26474.22" steps = "350" />
 				yield return new ProgressDisplay(
 					goal.Attribute("title").Value,
 					$@"Resources\{goal.Attribute("photo").Value}",
