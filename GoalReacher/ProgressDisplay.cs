@@ -33,6 +33,18 @@ namespace GoalReacher
 		public static readonly DependencyProperty BackgroundProperty =
 			 DependencyProperty.Register("Background", typeof(string), typeof(ProgressDisplay), new PropertyMetadata(""));
 
+
+
+		public string Status
+		{
+			get { return (string)GetValue(StatusProperty); }
+			set { SetValue(StatusProperty, value); }
+		}
+
+		// Using a DependencyProperty as the backing store for Status.  This enables animation, styling, binding, etc...
+		public static readonly DependencyProperty StatusProperty =
+			 DependencyProperty.Register("Status", typeof(string), typeof(ProgressDisplay), new PropertyMetadata(""));
+
 		internal void UpdateDisplay(double width, double height)
 		{
 			Canvas.Children.Clear();
@@ -119,10 +131,10 @@ namespace GoalReacher
 
 		private void OnDownloadComplete(object sender, AsyncCompletedEventArgs e)
 		{
-			if (io.File.Exists(m_cachedFileLocation))
+			if (e.Error == null && io.File.Exists(m_cachedFileLocation))
 				Background = m_cachedFileLocation;
 			else
-				throw new WebException($"File wasn't downloaded: {m_sourceBackground}");
+				Status = $"Failed to load image: {e.Error?.Message ?? "Unknown Error"}";
 
 			m_client.DownloadFileCompleted -= OnDownloadComplete;
 		}

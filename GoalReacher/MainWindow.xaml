@@ -20,6 +20,7 @@
 					<Grid.ColumnDefinitions>
 						<ColumnDefinition Width="Auto" />
 						<ColumnDefinition Width="Auto" />
+						<ColumnDefinition Width="*" />
 						<ColumnDefinition Width="Auto" />
 					</Grid.ColumnDefinitions>
 					<DockPanel Margin="4" Grid.Column="0">
@@ -32,7 +33,9 @@
 						<TextBox Background="LightGray" VerticalContentAlignment="Center" Text="{Binding ActualAmount, StringFormat=C, UpdateSourceTrigger=PropertyChanged}" KeyDown="TextBox_KeyDown" />
 					</DockPanel>
 
-					<Button Padding="4" Margin="4" Grid.Column="2" Content="Update" Click="UpdateProgress_Click" IsDefault="True"/>
+					<Label Grid.Column="2" Content="{Binding Status}" ToolTip="{Binding Status}" VerticalAlignment="Center"></Label>
+
+					<Button Padding="4" Margin="4" Grid.Column="3" Content="Update" Click="UpdateProgress_Click" IsDefault="True"/>
 				</Grid>
 			</Grid>
 		</DataTemplate>
