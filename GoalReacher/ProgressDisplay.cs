@@ -81,10 +81,13 @@ namespace GoalReacher
 				else if (i > progressIndexToChangeDisplay)
 					currentOpacity = c_defaultOpacity;
 
-				var progressBox = new Rectangle { Width = itemWidth, Height = itemHeight, Fill = Brushes.DarkGray, Opacity = currentOpacity, Stroke = Brushes.White, StrokeThickness = c_progressStrokeThickness };
-				Canvas.Children.Add(progressBox);
-				Canvas.SetLeft(progressBox, currentX);
-				Canvas.SetTop(progressBox, currentY);
+				if (currentOpacity >= 0.001)
+				{
+					var progressBox = new Rectangle { Width = itemWidth, Height = itemHeight, Fill = Brushes.DarkGray, Opacity = currentOpacity, Stroke = Brushes.White, StrokeThickness = c_progressStrokeThickness };
+					Canvas.Children.Add(progressBox);
+					Canvas.SetLeft(progressBox, currentX);
+					Canvas.SetTop(progressBox, currentY);
+				}
 
 				currentX += itemWidth;
 				if (currentX - c_horizontalOffset + itemWidth - 2 >= width)
