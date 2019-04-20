@@ -6,11 +6,24 @@ using System.Windows.Shapes;
 using System.Net;
 using System.ComponentModel;
 using System.Windows;
+using System.Xml.Linq;
 
 namespace GoalReacher
 {
-	class ProgressDisplay : DependencyObject
+	internal class ProgressDisplay : DependencyObject
 	{
+		internal static ProgressDisplay Create(XElement data, int width, int height)
+		{
+			return new ProgressDisplay(
+				data.Attribute("title").Value,
+				data.Attribute("photo").Value,
+				width,
+				height,
+				int.Parse(data.Attribute("steps").Value),
+				decimal.Parse(data.Attribute("goalAmount").Value),
+				decimal.Parse(data.Attribute("currentAmount").Value));
+		}
+
 		public ProgressDisplay(string title, string background, double width, double height, int numberOfItems, decimal goalAmount, decimal actualAmount)
 		{
 			Title = title;

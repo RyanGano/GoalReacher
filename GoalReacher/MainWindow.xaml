@@ -42,7 +42,7 @@
 	</Window.Resources>
 
 	<Grid>
-		<ContentPresenter DockPanel.Dock="Top" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" x:Name="ProgressDisplay" />
+		<ContentPresenter DockPanel.Dock="Top" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" x:Name="Display" />
 		<DockPanel VerticalAlignment="Bottom" HorizontalAlignment="Right">
 			<Button Padding="4" Margin="4" DockPanel.Dock="Right" Click="UpdateProgressData">Update Data</Button>
 			<ComboBox Name="ProgressSelector" Margin="4" DockPanel.Dock="Right" SelectionChanged="ProgressSelector_SelectionChanged" >

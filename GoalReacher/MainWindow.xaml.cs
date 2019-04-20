@@ -34,35 +34,31 @@ namespace GoalReacher
 			var data = XDocument.Load(dataPath);
 
 			foreach (var goal in data.Root.Elements("goal"))
-			{
-				yield return new ProgressDisplay(
-					goal.Attribute("title").Value,
-					goal.Attribute("photo").Value,
-					(int)Width - c_widthOffset,
-					(int)Height - c_heightOffset,
-					int.Parse(goal.Attribute("steps").Value),
-					decimal.Parse(goal.Attribute("goalAmount").Value),
-					decimal.Parse(goal.Attribute("currentAmount").Value));
-			}
+				yield return ProgressDisplay.Create(goal, (int)Width - c_widthOffset, (int)Height - c_heightOffset);
 		}
 
 		private void OnSizeChanged(object sender, SizeChangedEventArgs e)
 		{
-			CurrentDisplay.UpdateDisplay(ProgressDisplay.ActualWidth, ProgressDisplay.ActualHeight);
+			UpdateDisplay();
 		}
 
 		private void UpdateProgress_Click(object sender, RoutedEventArgs e)
 		{
-			CurrentDisplay.UpdateDisplay(ProgressDisplay.ActualWidth, ProgressDisplay.ActualHeight);
+			UpdateDisplay();
 		}
 
 		private void TextBox_KeyDown(object sender, System.Windows.Input.KeyEventArgs e)
 		{
 			if (e.Key == System.Windows.Input.Key.Enter)
 			{
-				CurrentDisplay.UpdateDisplay(ProgressDisplay.ActualWidth, ProgressDisplay.ActualHeight);
+				UpdateDisplay();
 				e.Handled = true;
 			}
+		}
+
+		private void UpdateDisplay()
+		{
+			CurrentDisplay.UpdateDisplay(Display.ActualWidth, Display.ActualHeight);
 		}
 
 		private void UpdateProgressData(object sender, RoutedEventArgs e)
@@ -70,18 +66,18 @@ namespace GoalReacher
 			UpdateUIWithProgressData();
 		}
 
-		const int c_widthOffset = 14;
-		const int c_heightOffset = 38;
-		const string c_windowTitle = "Goal Reacher: {0}";
-
 		private void ProgressSelector_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
 		{
 			CurrentDisplay = ((ComboBox)sender).SelectedItem as ProgressDisplay;
 			if (CurrentDisplay != null)
 			{
-				ProgressDisplay.Content = CurrentDisplay;
+				Display.Content = CurrentDisplay;
 				Title = string.Format(c_windowTitle, CurrentDisplay.Title);
 			}
 		}
+
+		const int c_widthOffset = 14;
+		const int c_heightOffset = 38;
+		const string c_windowTitle = "Goal Reacher: {0}";
 	}
 }
